@@ -1,0 +1,58 @@
+/* Tokens de diseño — colores muestreados del mockup (design/heros.png, design/web completa.png) */
+:root {
+  /* Marca */
+  --navy-900: #051b31; /* titulares */
+  --navy-800: #0a2744;
+  --navy-700: #0f2e4e; /* top bar, bloques oscuros */
+  --navy-600: #1a3b5b; /* panel "¿Por qué elegir?" */
+  --blue-600: #0760cf; /* acento azul ("empresas e instituciones") */
+  --blue-500: #1b6fe0;
+  --logo-blue: #1b4aa8;
+  --orange-500: #fd6505; /* CTA principal */
+  --orange-600: #e85a00;
+  --orange-100: #fff1e6;
+
+  /* Neutros */
+  --bg: #fafbfd;
+  --bg-alt: #f3f6fb;
+  --surface: #ffffff;
+  --line: #e5e9f0;
+  --text: #5d6a86;
+  --text-strong: #1e2b43;
+  --muted: #8a94a8;
+
+  /* Tipografía */
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'Figtree', system-ui, sans-serif;
+
+  /* Layout */
+  --section-py: 120px;
+  --container: 1320px;
+  --gutter: 64px;
+
+  /* Forma y profundidad */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-pill: 999px;
+  --shadow-sm: 0 2px 8px rgba(15, 46, 78, 0.06);
+  --shadow-md: 0 10px 30px -8px rgba(15, 46, 78, 0.14);
+  --shadow-lg: 0 24px 60px -16px rgba(15, 46, 78, 0.25);
+  --shadow-orange: 0 12px 28px -8px rgba(253, 101, 5, 0.55);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --section-py: 96px;
+    --gutter: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --section-py: 72px;
+    --gutter: 20px;
+  }
+}
