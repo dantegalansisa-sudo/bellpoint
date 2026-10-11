@@ -1,18 +1,27 @@
-// Datos del negocio — PLACEHOLDERS: reemplazar con los datos reales de Bellpoint SRL.
+// Datos del negocio. Fuente: datos/BELLPOINT_Documento_Maestro_Contenido_Website (octubre 2026).
+// Lo que el documento marca como "pendiente de confirmar" queda en null y NO se muestra en la web.
+
+type Social = { name: 'facebook' | 'instagram' | 'linkedin' | 'youtube'; url: string }
+
 export const config = {
-  name: 'Belpoint SRL', // el mockup y las fotos usan "BELPOINT"
-  tagline: 'Soluciones para tu empresa',
-  whatsapp: '18090000000', // formato internacional sin "+" ni espacios
-  phone: '(809) 000-0000',
-  phoneHref: 'tel:+18090000000',
-  email: 'info@belpoint.com',
-  address: 'Santo Domingo, República Dominicana',
-  hours: 'Lun - Vie 8:00 a.m. - 6:00 p.m.',
-  mapsUrl: 'https://maps.google.com/?q=Santo+Domingo,+Republica+Dominicana',
-  socials: {
-    facebook: 'https://facebook.com/',
-    instagram: 'https://instagram.com/',
-    linkedin: 'https://linkedin.com/',
-    youtube: 'https://youtube.com/',
-  },
-} as const
+  name: 'BELLPOINT, SRL',
+  brand: 'BELLPOINT',
+  tagline: 'Soluciones integrales para empresas e instituciones',
+  // Número principal del botón de WhatsApp (el documento pide definirlo en desarrollo).
+  whatsapp: '18092819109',
+  phones: [
+    { label: '(809) 281-9109', href: 'tel:+18092819109' },
+    { label: '(809) 869-1198', href: 'tel:+18098691198' },
+  ],
+  address: 'Rafael Augusto Sánchez #28, Evaristo Morales',
+  city: 'Distrito Nacional, República Dominicana',
+  mapsQuery: 'Rafael Augusto Sánchez 28, Evaristo Morales, Santo Domingo, República Dominicana',
+  // Pendientes de confirmar por BELLPOINT antes de publicar:
+  email: null as string | null,
+  hours: null as string | null,
+  socials: [] as Social[],
+  director: { name: 'Ing. Jhonas Bello', role: 'Director Ejecutivo' },
+}
+
+export const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(config.mapsQuery)}`
+export const mapsEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(config.mapsQuery)}&z=15&output=embed`

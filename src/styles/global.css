@@ -685,7 +685,7 @@ a.topbar__item:hover {
 }
 .service-card__media {
   position: relative;
-  aspect-ratio: 4 / 3;
+  display: block;
 }
 .service-card__media img {
   width: 100%;
@@ -817,115 +817,6 @@ a.topbar__item:hover {
   object-position: 55% center;
 }
 
-/* ═════════════ Productos ═════════════ */
-.carousel {
-  position: relative;
-}
-.carousel__prev,
-.carousel__next {
-  position: absolute;
-  top: 42%;
-  z-index: 2;
-}
-.carousel__prev {
-  left: -22px;
-}
-.carousel__next {
-  right: -22px;
-}
-.products__scroller {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: calc((100% - 4 * 22px) / 5);
-  gap: 22px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: 8px 2px 24px;
-  scrollbar-width: none;
-}
-.products__scroller::-webkit-scrollbar {
-  display: none;
-}
-.product-card {
-  display: flex;
-  flex-direction: column;
-  scroll-snap-align: start;
-  padding: 20px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-}
-.product-card__media {
-  position: relative;
-  aspect-ratio: 1 / 1;
-  margin-bottom: 16px;
-}
-.product-card__media img {
-  position: absolute;
-  inset: 6%;
-  width: 88%;
-  height: 88%;
-  object-fit: contain;
-  transition: transform 0.6s var(--ease);
-}
-.product-card:hover .product-card__media img {
-  transform: scale(1.06);
-}
-.product-card h3 {
-  font-size: 16px;
-  font-weight: 700;
-}
-.product-card__spec {
-  font-size: 13.5px;
-  color: var(--muted);
-}
-.product-card__foot {
-  margin-top: auto;
-  padding-top: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-.product-card__price {
-  font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--navy-900);
-  white-space: nowrap;
-}
-.product-card__btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  height: 38px;
-  padding: 0 10px;
-  border-radius: var(--r-pill);
-  background: var(--orange-500);
-  color: #fff;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 13px;
-  white-space: nowrap;
-  box-shadow: var(--shadow-orange);
-  transition: all 0.4s var(--ease);
-}
-.product-card__btn span {
-  max-width: 0;
-  overflow: hidden;
-  transition: max-width 0.45s var(--ease);
-}
-.product-card:hover .product-card__btn span,
-.product-card__btn:focus-visible span {
-  max-width: 140px;
-}
-.product-card:hover .product-card__price {
-  display: none;
-}
-.product-card:hover .product-card__btn {
-  width: 100%;
-  justify-content: center;
-}
-
 /* ═════════════ Nosotros ═════════════ */
 .about {
   display: grid;
@@ -980,8 +871,8 @@ a.topbar__item:hover {
 /* ═════════════ Proceso ═════════════ */
 .process__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
 }
 .process__step {
   position: relative;
@@ -1094,79 +985,6 @@ a.topbar__item:hover {
 .sector-card p {
   font-size: 13.5px;
   color: rgba(255, 255, 255, 0.65);
-}
-
-/* ═════════════ Testimonios ═════════════ */
-.testimonials__nav {
-  display: flex;
-  gap: 10px;
-}
-.testimonials__track {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: calc((100% - 28px) / 2);
-  gap: 28px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: 8px 2px 24px;
-  scrollbar-width: none;
-}
-.testimonials__track::-webkit-scrollbar {
-  display: none;
-}
-.testimonial {
-  scroll-snap-align: start;
-  display: flex;
-  gap: 28px;
-  align-items: flex-start;
-  margin: 0;
-  padding: 32px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-}
-.testimonial__avatar {
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  width: 84px;
-  height: 84px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--blue-600), var(--navy-700));
-  color: #fff;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 26px;
-  box-shadow: 0 0 0 5px var(--orange-100);
-}
-.testimonial blockquote {
-  margin: 0 0 18px;
-  font-size: 16.5px;
-  line-height: 1.55;
-  color: var(--text-strong);
-}
-.testimonial figcaption {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.testimonial figcaption strong {
-  display: block;
-  font-family: var(--font-display);
-  color: var(--navy-900);
-}
-.testimonial figcaption span {
-  font-size: 13.5px;
-}
-.testimonial__stars {
-  display: inline-flex;
-  gap: 2px;
-  color: var(--orange-500);
-}
-.testimonial__stars svg {
-  fill: currentColor;
 }
 
 /* ═════════════ Contacto (FAQ + formulario) ═════════════ */
@@ -1472,9 +1290,6 @@ a.topbar__item:hover {
   .services__grid {
     grid-template-columns: repeat(3, 1fr);
   }
-  .products__scroller {
-    grid-auto-columns: calc((100% - 3 * 22px) / 4);
-  }
   .sectors__grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 28px 20px;
@@ -1603,9 +1418,6 @@ a.topbar__item:hover {
     flex-direction: column;
     align-items: flex-start;
   }
-  .testimonials__track {
-    grid-auto-columns: 88%;
-  }
 }
 
 @media (max-width: 760px) {
@@ -1716,26 +1528,6 @@ a.topbar__item:hover {
   .why__photo {
     height: 320px;
   }
-  .products__scroller {
-    grid-auto-columns: 72%;
-  }
-  .carousel__prev,
-  .carousel__next {
-    display: none;
-  }
-  .product-card__btn span {
-    max-width: 140px;
-  }
-  .product-card__foot {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .product-card__btn {
-    justify-content: center;
-  }
-  .product-card:hover .product-card__price {
-    display: inline;
-  }
   .about__media {
     min-height: 260px;
   }
@@ -1752,16 +1544,6 @@ a.topbar__item:hover {
   .sector-card__cta {
     opacity: 1;
     transform: none;
-  }
-  .testimonial {
-    flex-direction: column;
-    gap: 18px;
-    padding: 24px;
-  }
-  .testimonial__avatar {
-    width: 64px;
-    height: 64px;
-    font-size: 20px;
   }
   .quote-form {
     padding: 28px 20px;
@@ -1800,17 +1582,6 @@ a.topbar__item:hover {
   }
 }
 
-@media (hover: none) {
-  .product-card__btn span {
-    max-width: 140px;
-  }
-  .product-card:hover .product-card__price {
-    display: inline;
-  }
-  .product-card:hover .product-card__btn {
-    width: auto;
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   html {

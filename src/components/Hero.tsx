@@ -1,7 +1,8 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import { heroHighlights, heroStats } from '../data/content'
-import { services } from '../data/services'
+import { Link } from 'react-router-dom'
+import { heroHighlights, heroStats } from '../data/company'
+import { featuredServices, getService } from '../data/services'
 import { quoteLink } from '../lib/whatsapp'
 import { Icon } from './Icon'
 import { AnimatedCounter, Magnetic, TextReveal } from './motion'
@@ -29,22 +30,22 @@ export function Hero() {
       </div>
 
       <motion.ul className="hero__strips" style={{ y: stripsY }}>
-        {services.map((s, i) => (
+        {featuredServices.map((slug) => getService(slug)!).map((s, i) => (
           <motion.li
-            key={s.id}
+            key={s.slug}
             className="hero__strip"
             initial={reduce ? false : { opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, delay: 0.35 + i * 0.1, ease }}
           >
             <img src={s.image} alt="" loading="eager" />
-            <a href="#servicios" className="hero__strip-card">
+            <Link to={`/servicios/${s.slug}`} className="hero__strip-card">
               <Icon name={s.icon} size={26} />
               <span>{s.short}</span>
               <span className="hero__strip-arrow">
                 <Icon name="chevronRight" size={14} strokeWidth={2.4} />
               </span>
-            </a>
+            </Link>
           </motion.li>
         ))}
       </motion.ul>
@@ -71,8 +72,8 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5, ease }}
         >
-          Suministros de oficina, equipos, tecnología, limpieza, mobiliario y servicios especializados. Todo lo que tu
-          empresa necesita, en un solo aliado.
+          Suministros, servicio técnico, tecnología, mantenimiento e infraestructura para empresas e instituciones en
+          República Dominicana. Múltiples necesidades, un solo proveedor.
         </motion.p>
 
         <motion.ul
@@ -97,13 +98,13 @@ export function Hero() {
         >
           <Magnetic>
             <a className="btn btn--primary btn--lg btn--pill" href={quoteLink()} target="_blank" rel="noreferrer">
-              <Icon name="file" size={20} /> Solicita una cotización <Icon name="arrow" size={18} />
+              <Icon name="file" size={20} /> Solicitar cotización <Icon name="arrow" size={18} />
             </a>
           </Magnetic>
           <Magnetic>
-            <a className="btn btn--outline btn--lg btn--pill" href="#servicios">
-              <Icon name="play" size={22} /> Conoce nuestros servicios
-            </a>
+            <Link className="btn btn--outline btn--lg btn--pill" to="/servicios">
+              <Icon name="play" size={22} /> Consultar nuestros servicios
+            </Link>
           </Magnetic>
         </motion.div>
       </div>
@@ -119,7 +120,7 @@ export function Hero() {
             <li key={s.label}>
               <Icon name={s.icon} size={38} strokeWidth={1.7} />
               <div>
-                <strong>{s.value ? <AnimatedCounter to={s.value} prefix={s.prefix} /> : s.title}</strong>
+                <strong>{s.value ? <AnimatedCounter to={s.value} /> : s.title}</strong>
                 <span>{s.label}</span>
               </div>
             </li>

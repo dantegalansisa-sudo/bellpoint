@@ -1,85 +1,86 @@
-# Belpoint SRL — Web demo
+# BELLPOINT, SRL — Website
 
-Landing one-page para **Belpoint SRL** ("Soluciones para tu empresa"): suministros de oficina, limpieza, mobiliario, tecnología, cámaras/redes, pantallas interactivas y construcción para empresas e instituciones en República Dominicana. Todas las conversiones van a **WhatsApp** (sin backend).
+Sitio multipágina de **BELLPOINT, SRL** ("Soluciones para tu empresa"): proveedor integral de suministros, servicio técnico, tecnología, mantenimiento e infraestructura para empresas e instituciones en República Dominicana. Todas las conversiones van a **WhatsApp** (sin backend).
 
-> Nota de marca: el mockup, el logo y todas las fotos dicen **BELPOINT / Belpoint** (una sola L). En la web se usa "Belpoint"; sólo el `<title>` SEO dice "Bellpoint" porque así se pidió. Confirmar con el cliente cuál es la ortografía correcta.
+## Fuentes de contenido (carpeta `datos/`, fuera de git)
+- `BELLPOINT_Documento_Maestro_Contenido_Website` (oct. 2026) — **fuente principal**. Su §19 lo declara versión vigente: cuando difiere del dossier, manda este.
+- `Dossier Corporativo BELLPOINT 2026-2027.pdf` — historia, divisiones, proceso, ventajas, cobertura, carta del director.
+- `Catalogo de productos de oficina…pdf` y `CATALOGO DE LIMPIEZA…pdf` — de aquí salen las imágenes de `public/images/catalogo/`.
+
+`datos/` está en `.gitignore` porque contiene el RNC y datos que el documento maestro pide **no publicar** hasta confirmar.
+
+## Reglas de contenido (Documento Maestro §14–15, §18)
+- Marca: **BELLPOINT** (doble L). Razón social: BELLPOINT, SRL.
+- No publicar: RNC, correo corporativo, usuarios de redes, horario (en `config.ts` son `null`/vacíos y la UI no los muestra).
+- No inventar testimonios, precios ni cifras. No nombrar clientes sin autorización (por eso la cobertura se muestra por regiones).
+- No presentar a BELLPOINT como empresa solo educativa ni como simple tienda: proveedor integral, productos + servicios.
+- Tono profesional y cercano; textos cortos, bloques visuales, CTAs visibles. Móvil primero.
 
 ## Stack
-- React 18 + TypeScript + Vite 5
-- Framer Motion (animaciones)
-- Vanilla CSS (`src/styles/tokens.css` + `src/styles/global.css`). **Sin Tailwind.**
-- Fuentes: Plus Jakarta Sans (display) + Figtree (texto) desde Google Fonts.
+React 18 + TypeScript + Vite 5 · react-router-dom 6 · Framer Motion · Vanilla CSS (sin Tailwind) · Plus Jakarta Sans + Figtree.
+`vercel.json` reescribe todas las rutas a `index.html` (SPA).
 
 ## Comandos
 - `npm run dev` — servidor local (launch config: puerto 5180)
-- `npm run build` — `tsc --noEmit` + build de Vite a `dist/`
+- `npm run build` — `tsc --noEmit` + build de Vite
+
+## Rutas
+| Ruta | Página | Contenido |
+|---|---|---|
+| `/` | `pages/Home.tsx` | Hero, servicios destacados, por qué elegirnos, banda PDI, catálogo por áreas, nosotros, proceso, sectores, FAQ + formulario, CTA |
+| `/nosotros` | `pages/About.tsx` | Quiénes somos, propuesta de valor, historia, mensaje del Director Ejecutivo, misión/visión/valores, respaldo RPE/B15/B01, cobertura |
+| `/servicios` | `pages/Services.tsx` | 11 servicios en 4 áreas + venta cruzada |
+| `/servicios/:slug` | `pages/Services.tsx` | Detalle: qué incluye, proceso (PDI), productos relacionados, servicios relacionados, formulario con modo según servicio |
+| `/catalogo` | `pages/Catalog.tsx` | 7 áreas con barra de chips fija; cada producto → WhatsApp "Hola BELLPOINT, quiero cotizar: …" |
+| `/sectores` | `pages/Sectors.tsx` | 9 sectores con servicios que suelen necesitar |
+| `/educacion` | `pages/Education.tsx` | Vertical educativa (divisiones del dossier) |
+| `/contacto` | `pages/Contact.tsx` | Tarjetas de contacto, mapa, formulario con 3 modos, FAQ |
 
 ## Estructura
 ```
 src/
-  config.ts            ← datos del negocio (PLACEHOLDERS: WhatsApp, teléfono, email, dirección, redes, horario)
-  data/                ← services.ts, products.ts, sectors.ts, content.ts (nav, stats, why-us, proceso, testimonios, FAQ)
-  lib/whatsapp.ts      ← waLink(text) / quoteLink(item) → "Hola, quiero cotizar: [PRODUCTO]"
+  config.ts              ← datos del negocio (teléfonos, WhatsApp, dirección, director; pendientes en null)
+  data/
+    services.ts          ← 11 servicios + grupos (slug, includes, related, catalog, formMode, cta)
+    catalog.ts           ← áreas del catálogo y sus categorías (sin precios)
+    sectors.ts           ← sectores + ejemplos de venta cruzada
+    company.ts           ← nav, nosotros, historia, misión, visión, valores, ventajas, proceso, cobertura, FAQ, stats
+  lib/whatsapp.ts        ← waLink / quoteLink
+  lib/seo.ts             ← usePageMeta(title, description) por página
   components/
-    Header.tsx         ← TopBar + Navbar (dropdowns, menú móvil)
-    Hero.tsx           ← hero con parallax + tiras diagonales de servicios + stats (AnimatedCounter)
-    Sections.tsx       ← Servicios, ¿Por qué elegirnos?, Productos (carrusel), Nosotros, Proceso, Sectores
-    Contact.tsx        ← Testimonios (carrusel), FAQ + formulario de cotización, CTA final, Footer, WhatsApp flotante
-    motion.tsx         ← Reveal, TextReveal, Stagger, Magnetic, AnimatedCounter
-    ui.tsx             ← SectionHead, useCarousel, ArrowButton, ImagePlaceholder
-    Icon.tsx, Logo.tsx ← iconos SVG inline y logo recreado en SVG
-public/images/         ← imágenes WebP optimizadas
-public/favicon.svg     ← favicon (marca "O" del logo)
-design/                ← referencias del mockup (heros.png, web completa.png) + originales/ (PNG fuente). No se publican.
-screenshots/           ← capturas full-page desktop (1440) y móvil (390)
+    layout.tsx           ← TopBar, Navbar (mega menú), CtaBanner, Footer, WhatsAppFloat, Layout + ScrollManager
+    Hero.tsx             ← hero del inicio (parallax + tiras de servicios + stats)
+    cards.tsx            ← ServiceCard, SectorCard, AreaCard, ProductCard
+    forms.tsx            ← QuoteForm (cotización / servicio técnico / visita) y Faq
+    ui.tsx               ← SectionHead, PageHero, Media (imagen o placeholder), carrusel
+    motion.tsx, Icon.tsx, Logo.tsx
+  styles/ tokens.css · global.css · pages.css
 ```
 
 ## Tokens (src/styles/tokens.css)
-| Token | Valor | Uso |
-|---|---|---|
-| `--navy-900` | `#051b31` | titulares |
-| `--navy-700` | `#0f2e4e` | top bar, sectores, CTA |
-| `--navy-600` | `#1a3b5b` | panel "¿Por qué elegir?" |
-| `--blue-600` | `#0760cf` | acento azul del H1 |
-| `--logo-blue` | `#1b4aa8` | logo |
-| `--orange-500` | `#fd6505` | CTAs, eyebrows, iconos de acento |
-| `--bg` | `#fafbfd` | fondo general (nunca #fff puro en fondos de página) |
-| `--text` | `#5d6a86` | texto de cuerpo |
+`--navy-900 #051b31` titulares · `--navy-700 #0f2e4e` bloques oscuros · `--blue-600 #0760cf` acento · `--orange-500 #fd6505` CTAs · `--bg #fafbfd` fondo · `--text #5d6a86` cuerpo.
+Secciones `120px 0`, contenedor `1320px`, padding `0 64px` (40/20px en tablet/móvil).
 
-Layout: secciones `padding: 120px 0` (`--section-py`), contenedor `max-width: 1320px`, `padding: 0 64px` (baja a 40/20px en tablet/móvil).
-
-## Reglas
-- Copy en español, tono B2B (empresas, instituciones, cotizaciones). Textos tomados del mockup.
-- Todo CTA abre WhatsApp con texto prellenado (producto / servicio / sector / formulario).
-- Datos del negocio sólo en `src/config.ts`; catálogos sólo en `src/data/`.
-- Sin cursor personalizado. Botón flotante de WhatsApp siempre visible.
-- Animaciones: text reveal en titulares, parallax en hero, CTAs magnéticos, grids escalonados, hover-lift en cards. Todo respeta `prefers-reduced-motion` (`MotionConfig reducedMotion="user"` + media query CSS).
-- Imágenes: WebP en `public/images/`, `aspect-ratio` fijo, `object-fit` (nunca estiradas).
-
-## Mapeo de imágenes
-| Archivo fuente | Destino | Sección |
-|---|---|---|
-| foto principal del heros | `hero.webp` | Hero (foto principal, parallax) |
-| suministro de oficina | `servicio-oficina.webp` | Servicios + tira del hero |
-| producto de higiene | `servicio-limpieza.webp` | Servicios + tira del hero |
-| intalacion de camara | `servicio-camaras.webp` | Servicios + tira del hero |
-| venta y reparacion de pantalla | `servicio-pantallas.webp` | Servicios + tira del hero |
-| construccion etc | `servicio-construccion.webp` | Servicios ("Construcción, banilería y gyprock") + tira del hero |
-| escritorio / silla eje / archivador metalico / laptop / aire | `producto-*.webp` | Productos destacados |
-| image (98) | `sector-publico.webp` | Sectores → "Sector público" |
-| sector privado | `sector-privado.webp` | Sectores → "Empresas privadas" |
-| centro educativo / salud / hoteleria y turismo / industria y mas | `sector-*.webp` | Sectores |
-| porque elegir bellpoint | `porque-elegirnos.webp` | ¿Por qué elegirnos? |
-| tu aliado | `nosotros.webp` | Nosotros |
-| listo para llevar tu empresa etc | `cta-fondo.webp` | CTA final |
+## Imágenes
+- `public/images/` — fotos del mockup (hero, servicios, sectores, nosotros, CTA) y del dossier (`direccion-jhonas-bello`, `edu-*`).
+- `public/images/catalogo/` — 39 productos recortados de los catálogos oficiales (fondo blanco, 600×600).
 
 ## Imágenes pendientes
-- **Fotos de testimonios** (`testimonio-carlos-mendez.webp`, `testimonio-ana-rodriguez.webp`, …, 1:1). Ahora se muestran avatares con iniciales.
-- **`sector-publico.webp` en mayor resolución**: la fuente `image (98)` sólo mide 236×157 px; se ve suave en pantallas retina. Idealmente una foto de edificio gubernamental ≥ 800 px de ancho.
-- **`producto-escritorio.webp` recortado sobre blanco**: la foto actual tiene fondo gris de estudio y rompe la uniformidad del carrusel.
-- **Logo oficial** (SVG/PNG). El actual es una recreación en SVG a partir del mockup.
-- **Imagen OG dedicada** 1200×630 (`og-image.jpg`); por ahora `og:image` usa `hero.webp`.
-- Mapa del footer: iframe de Google Maps con la dirección placeholder; actualizar con la dirección real.
+- **Fotos reales** de trabajos, PDI reparadas, instalaciones y personal (Documento Maestro §16).
+- `servicio-software.webp`, `servicio-energia.webp`, `servicio-redes.webp` (servicios).
+- `sector-restaurantes.webp`, `sector-condominios.webp`, `sector-academias.webp` (sectores).
+- `edu-arte-escolar.webp`, `catalogo/educacion-arte.webp`, `catalogo/educacion-manualidades.webp`, `catalogo/educacion-juego-seguro.webp`, `catalogo/mobiliario-comedor.webp`.
+- `sector-publico.webp` en mayor resolución (fuente de 236 px).
+- **Logo oficial** en vector. El logo actual es la recreación del mockup; el catálogo muestra otro logo (una "B" con check rojo).
+- Las fotos del hero, "¿Por qué elegir?" y "Nosotros" muestran el rótulo "BELPOINT" (una L): reemplazar por fotos reales.
+- Imagen OG 1200×630.
 
-## Datos placeholder por reemplazar (src/config.ts)
-WhatsApp `18090000000`, teléfono `(809) 000-0000`, email `info@belpoint.com`, dirección, horario, URLs de redes sociales. Precios de productos en `src/data/products.ts` son los del mockup.
+## Pendientes de confirmar con BELLPOINT (antes de publicar)
+- Número principal de WhatsApp (se usa (809) 281-9109).
+- Dirección pública: el documento maestro dice Rafael Augusto Sánchez #28, Evaristo Morales (D.N.); el dossier dice Santo Domingo Este y el catálogo "C/ Hípica #10" / "Av. Lope de Vega #12". Se usa la del documento maestro.
+- RNC, correo corporativo (el dossier menciona grupobellpoint@gmail.com), redes sociales, horario, dominio.
+- Testimonios autorizados (la sección se eliminó hasta tenerlos).
+- Política de privacidad y términos.
+
+## Segunda etapa (Documento Maestro §10–11)
+Portal de clientes, seguimiento de equipos por código/QR, órdenes de servicio, CRM. La arquitectura por datos (`src/data/`) permite crecer el catálogo y añadir rutas sin rehacer el sitio.
