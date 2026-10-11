@@ -76,7 +76,7 @@ Secciones `120px 0`, contenedor `1320px`, padding `0 64px` (40/20px en tablet/m�
 - Imagen OG 1200×630.
 
 ## Pendientes de confirmar con BELLPOINT (antes de publicar)
-- Número principal de WhatsApp (se usa (809) 281-9109).
+- WhatsApp principal confirmado: (809) 869-1198.
 - Dirección pública: el documento maestro dice Rafael Augusto Sánchez #28, Evaristo Morales (D.N.); el dossier dice Santo Domingo Este y el catálogo "C/ Hípica #10" / "Av. Lope de Vega #12". Se usa la del documento maestro.
 - RNC, correo corporativo (el dossier menciona grupobellpoint@gmail.com), redes sociales, horario, dominio.
 - Testimonios autorizados (la sección se eliminó hasta tenerlos).

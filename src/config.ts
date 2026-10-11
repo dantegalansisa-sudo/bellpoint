@@ -7,8 +7,9 @@ export const config = {
   name: 'BELLPOINT, SRL',
   brand: 'BELLPOINT',
   tagline: 'Soluciones integrales para empresas e instituciones',
-  // Número principal del botón de WhatsApp (el documento pide definirlo en desarrollo).
-  whatsapp: '18092819109',
+  // Número principal de WhatsApp (confirmado por el cliente).
+  whatsapp: '18098691198',
+  whatsappLabel: '(809) 869-1198',
   phones: [
     { label: '(809) 281-9109', href: 'tel:+18092819109' },
     { label: '(809) 869-1198', href: 'tel:+18098691198' },

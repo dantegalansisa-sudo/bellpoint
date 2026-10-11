@@ -30,7 +30,7 @@ export default function Contact() {
                 <WhatsAppIcon size={24} />
               </span>
               <strong>WhatsApp</strong>
-              <span>{config.phones[0].label}</span>
+              <span>{config.whatsappLabel}</span>
             </motion.a>
             <motion.div variants={staggerItem} className="contact-card card-lift">
               <span className="contact-card__icon">
